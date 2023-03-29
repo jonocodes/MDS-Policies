@@ -25,25 +25,18 @@ def fetch_policies(region_id: str = None):
 
     # reformat the date fields from epoc to datetime
 
-    policies["start_date"] = pd.to_datetime(
-        policies["start_date"], unit="ms"
-    )
+    policies["start_date"] = pd.to_datetime(policies["start_date"], unit="ms")
     policies["end_date"] = pd.to_datetime(policies["end_date"], unit="ms")
 
     return policies
+
 
 def get_active_policies(policies: pd.DataFrame, starting: datetime, ending: datetime):
     """Get the policies that are active between 'starting' and 'ending'."""
 
     active_policies = policies[
-        (
-            policies["start_date"].isnull()
-            | (policies["start_date"] < ending)
-        )
-        & (
-            policies["end_date"].isnull()
-            | (policies["end_date"] > starting)
-        )
+        (policies["start_date"].isnull() | (policies["start_date"] < ending))
+        & (policies["end_date"].isnull() | (policies["end_date"] > starting))
     ]
 
     return active_policies
@@ -60,7 +53,6 @@ def get_rules(policies: pd.DataFrame):
 
 
 def get_vehicle_types(rules: pd.DataFrame):
-
     vtype_counts = defaultdict(int)
 
     for entries in rules["vehicle_types"]:
@@ -68,7 +60,7 @@ def get_vehicle_types(rules: pd.DataFrame):
             for t in entries:
                 vtype_counts[t] += 1
 
-    return pd.DataFrame(vtype_counts.items(), columns=["type", "count"]) 
+    return pd.DataFrame(vtype_counts.items(), columns=["type", "count"])
 
 
 def get_rule_types(rules: pd.DataFrame):
@@ -81,7 +73,7 @@ def get_rule_types(rules: pd.DataFrame):
     )
 
 
-def print_stats(region_id: str=None):
+def print_stats(region_id: str = None):
     """Fetch and print policy stats for a region."""
 
     # define the timespan to look for (the last month)
@@ -117,7 +109,7 @@ def print_stats(region_id: str=None):
 
     print("\nrule types = ")
 
-    print(types['total'].to_string(header=False))
+    print(types["total"].to_string(header=False))
 
     # plot a bar graph if run in jupiter notebook
     types.sort_values(by="total", ascending=1).plot.barh(ylabel="rule")
