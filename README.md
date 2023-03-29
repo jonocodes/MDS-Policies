@@ -2,6 +2,12 @@
 
 I made heavy use of Pandas, since I enjoyed learning how to process and plot the data.
 
+[See code here](policies.py)
+
+[See results here](policies.ipynb)
+
+## Plot screenshot
+
 ![types](types.png?raw=true "types")
 
 # Running
