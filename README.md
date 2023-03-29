@@ -21,7 +21,7 @@ I made heavy use of Pandas, since I enjoyed learning how to process and plot the
 
 ## API parameters
 
-I could not get params to work. Tried id, start_date, end_date.
+I could not get params to work. Tried id, start_date, end_date. Also geography by uuid.
 
 ```bash
 ➜  curl -H "X-API-KEY: xxxx" -H "Accept: application/json" "https://api.populus.ai/v1/mds/policies" | wc
@@ -38,4 +38,10 @@ I could not get params to work. Tried id, start_date, end_date.
 
 ➜  curl -H "X-API-KEY: xxxx" -H "Accept: application/json" "https://api.populus.ai/v1/mds/policies/cb0e6c9d34fc40b99145f03fc47c4cfa" 
 {"error":"Not Found"}
+
+curl -H "X-API-KEY: xxxx" -H "Accept: application/json" "https://api.populus.ai/v1/mds/geographies/d74a13fd-e98c-4d65-9dfe-6e98c35478b4"|jq
+{
+  "error": "Not Found"
+}
+
 ```
